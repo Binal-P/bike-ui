@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {BikeService} from '../../services/bike.service'
 import {ActivatedRoute} from '@angular/router'
 import { Subject } from 'rxjs';
@@ -12,14 +12,13 @@ import { takeUntil, skip } from 'rxjs/operators';
 export class ViewRegistrationComponent implements OnInit{
 
   public bikeReg;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(public bikeService:BikeService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getBikeReg(this.route.snapshot.params.id);
   }
   getBikeReg(id:number){
-    this.bikeService.getBike(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+    this.bikeService.getBike(id).subscribe(
       data => {
         console.log(data);
         this.bikeReg = data;
@@ -28,8 +27,5 @@ export class ViewRegistrationComponent implements OnInit{
       () => console.log('Bikes loaded') 
     );
   }
-  ngOnDestroy(){
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
+ 
 }

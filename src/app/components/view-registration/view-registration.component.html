@@ -2,7 +2,7 @@
     <div class="row">
       <a class="btn btn=primary" routerLink="/admin">Back to List</a>
     </div>
-    <div>
+    <div *ngIf="bikeReg">
       <div class="form-group">
         <label>Buyer Name</label>
         <div class="form-control">{{bikeReg.name}}</div>
